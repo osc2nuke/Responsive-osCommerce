@@ -222,7 +222,10 @@
   } else {
     $current_category_id = 0;
   }
-
+// initialize admin configuration modules
+  require('includes/classes/cfg_admin_modules.php');
+  $cfgAdminModules = new cfg_admin_modules();
+  
 // initialize configuration modules
   require('includes/classes/cfg_modules.php');
   $cfgModules = new cfg_modules();
@@ -233,7 +236,9 @@
                         array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
                         array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
                        );
-                       
+// include oscTemplate class
+    require('includes/classes/osc_template.php');
+    $oscTemplate = new oscTemplate();  
   require(DIR_FS_CATALOG . 'includes/classes/hooks.php');
   $OSCOM_Hooks = new hooks('admin');
 

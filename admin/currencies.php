@@ -151,26 +151,21 @@ function updateForm() {
   document.forms["currencies"].value.value = 1;
 }
 </script>
+<div class="page-header">
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+	<h1><?php echo HEADING_TITLE; ?></h1>
+</div>
+<div class="row">
+	<div class="col-md-8">	
+		<table class="table table-bordered table-striped table-hover">
+	<thead>
               <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CURRENCY_NAME; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CURRENCY_CODES; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_CURRENCY_VALUE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_CURRENCY_NAME; ?></th>
+                <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_CURRENCY_CODES; ?></th>
+                <th class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_CURRENCY_VALUE; ?></th>
+                <th class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
               </tr>
+	</thead>
 <?php
   $currency_query_raw = "select currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, last_updated, value from " . TABLE_CURRENCIES . " order by title";
   $currency_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $currency_query_raw, $currency_query_numrows);
@@ -181,9 +176,9 @@ function updateForm() {
     }
 
     if (isset($cInfo) && is_object($cInfo) && ($currency['currencies_id'] == $cInfo->currencies_id) ) {
-      echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link('currencies.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=edit') . '\'">' . "\n";
+      echo '<tr id="defaultSelected" class="table-primary" onclick="document.location.href=\'' . tep_href_link('currencies.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link('currencies.php', 'page=' . $_GET['page'] . '&cID=' . $currency['currencies_id']) . '\'">' . "\n";
+      echo '<tr class="dataTableRow" onclick="document.location.href=\'' . tep_href_link('currencies.php', 'page=' . $_GET['page'] . '&cID=' . $currency['currencies_id']) . '\'">' . "\n";
     }
 
     if (DEFAULT_CURRENCY == $currency['code']) {
@@ -199,25 +194,22 @@ function updateForm() {
 <?php
   }
 ?>
-              <tr>
-                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td class="smallText" valign="top"><?php echo $currency_split->display_count($currency_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CURRENCIES); ?></td>
-                    <td class="smallText" align="right"><?php echo $currency_split->display_links($currency_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
-                  </tr>
+		</table>
+		<nav>
+			<ul class="pagination float-left"><?php echo $currency_split->display_count($currency_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CURRENCIES); ?></ul>
+			<?php echo $currency_split->display_links($currency_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>
+		
+        </nav>
 <?php
   if (empty($action)) {
 ?>
-                  <tr>
-                    <td class="smallText"><?php echo tep_draw_button(IMAGE_UPDATE_CURRENCIES, 'refresh', tep_href_link('currencies.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=update')); ?></td>
-                    <td class="smallText" align="right"><?php echo tep_draw_button(IMAGE_NEW_CURRENCY, 'plus', tep_href_link('currencies.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=new')); ?></td>
-                  </tr>
+    <nav class="pt-5">
+        <div class="float-right"><?php if (CURRENCY_SERVER_PRIMARY) { echo tep_draw_button(IMAGE_UPDATE_CURRENCIES, 'refresh', tep_href_link('currencies.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=update')); } echo ' ' . tep_draw_button(IMAGE_NEW_CURRENCY, 'plus', tep_href_link('currencies.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=new')); ?></div>
+    </nav>
 <?php
   }
 ?>
-                </table></td>
-              </tr>
-            </table></td>
+	</div><!-- end col-* -->		
 <?php
   $heading = array();
   $contents = array();
@@ -282,21 +274,17 @@ function updateForm() {
       break;
   }
 
-  if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
+	if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
+		echo '<div class="col-md-4" >' . "\n";
 
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
+		$box = new box;
+		echo $box->infoBox($heading, $contents);
 
-    echo '            </td>' . "\n";
-  }
-?>
-          </tr>
-        </table></td>
-      </tr>
-    </table>
+		echo '</div>' . "\n";
+	}
 
-<?php
+  echo '</div>';//row end
+  
   require('includes/template_bottom.php');
   require('includes/application_bottom.php');
 ?>
