@@ -50,10 +50,20 @@ $oscTemplate->buildBlocks();
     <div id="bodyWrapper">
         <div class="container-fluid">
             <div class="row">
-
 <?php
 	if (tep_session_is_registered('admin')) {
-        include('includes/column_left.php');
+?>
+    
+            <nav id="adminAppMenu" class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky" id="columnLeft">
+<?php
+    if ($oscTemplate->hasBlocks('boxes_column_left')) {
+        echo $oscTemplate->getBlocks('boxes_column_left');
+    }
+?>  
+                </div>
+            </nav>
+<?php
 		echo '<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">';	  
 	} else {
 		echo '<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">';
