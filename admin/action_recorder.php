@@ -85,23 +85,29 @@
   require('includes/template_top.php');
 ?>
 <div class="page-header">
-	<div class="float-right">
-<?php
-		echo tep_draw_form('search', 'action_recorder.php', '', 'get', 'class="form-inline"');
-		echo '&nbsp;' . TEXT_FILTER_SEARCH . ' ' . tep_draw_input_field('search');
-		echo tep_draw_hidden_field('module') . tep_hide_session_id() . '</form>';
-?>
-	</div>
+        <?php echo tep_draw_form('search', 'action_recorder.php', '', 'get'); ?>
 
-	<div class="float-right">
-<?php
-		echo tep_draw_form('filter', 'action_recorder.php', '', 'get', 'class="form-inline"');
-		echo tep_draw_pull_down_menu('module', $modules_list_array, null, 'onchange="this.form.submit();"');
-		echo tep_draw_hidden_field('search') . tep_hide_session_id();
-		echo tep_draw_button(IMAGE_DELETE, 'trash', tep_href_link('action_recorder.php', 'action=expire' . (isset($_GET['module']) && in_array($_GET['module'], $modules_array) ? '&module=' . $_GET['module'] : '')), 'primary');
-		echo '</form>';
-?>
-	</div>	
+            <div class="input-group col-md-4 float-right p-1">
+                <div class="input-group-prepend">		
+                    <span class="input-group-text" id="basic-addon1"><?php echo TEXT_FILTER_SEARCH; ?></span>
+                </div>
+            <?php echo tep_draw_input_field('search'); ?>
+            
+            </div>
+            <?php echo tep_draw_hidden_field('module') . tep_hide_session_id(); ?>
+        </form> 
+
+
+        <?php echo tep_draw_form('filter', 'action_recorder.php', '', 'get'); ?>
+            <div class="input-group col-md-4 float-right p-1">
+                <?php echo tep_draw_pull_down_menu('module', $modules_list_array, null, 'onchange="this.form.submit();"'); ?>
+                <div class="input-group-prepend">		
+                    <?php echo tep_draw_button(IMAGE_DELETE, 'trash', tep_href_link('action_recorder.php', 'action=expire' . (isset($_GET['module']) && in_array($_GET['module'], $modules_array) ? '&module=' . $_GET['module'] : '')), 'primary'); ?>
+                </div>		
+            </div>
+        <?php echo tep_draw_hidden_field('search') . tep_hide_session_id(); ?>
+        </form>
+
 	<h1><?php echo HEADING_TITLE; ?></h1>
 </div>
 <div class="row">
