@@ -56,7 +56,7 @@
                     $(panel).prev().find("a").attr("aria-expanded", "true");
                 }
             }
-            $("#data").on("shown.bs.collapse", ".card-collapse", function() {
+            $("#adminAppMenu").on("shown.bs.collapse", ".card-collapse", function() {
                 adminCollapseAppMenu = JSON.parse(localStorage.getItem("adminCollapseAppMenu"));
                 if ($.inArray($(this).attr("id"), adminCollapseAppMenu) == -1) {
                     adminCollapseAppMenu.push($(this).attr("id"));
@@ -65,7 +65,7 @@
                 $($collapse).attr("aria-expanded", "true");
                 localStorage.setItem("adminCollapseAppMenu", JSON.stringify(adminCollapseAppMenu));
             });
-            $("#data").on("hidden.bs.collapse", ".card-collapse", function() {
+            $("#adminAppMenu").on("hidden.bs.collapse", ".card-collapse", function() {
                 adminCollapseAppMenu = JSON.parse(localStorage.getItem("adminCollapseAppMenu"));
                 adminCollapseAppMenu.splice( $.inArray($(this).attr("id"), adminCollapseAppMenu), 1 ); 		
                 localStorage.setItem("adminCollapseAppMenu", JSON.stringify(adminCollapseAppMenu));
@@ -74,8 +74,8 @@
                 //Close panels if navigate to index
                 adminCollapseAppMenu = [];
                 localStorage.setItem("adminCollapseAppMenu", JSON.stringify(adminCollapseAppMenu));
-                $("#data .sidebar-heading a").attr("aria-expanded", "false");
-                $("#data .card-collapse").removeClass("show");
+                $("#adminAppMenu .sidebar-heading a").attr("aria-expanded", "false");
+                $("#adminAppMenu .card-collapse").removeClass("show");
             }	
         </script>';
     
