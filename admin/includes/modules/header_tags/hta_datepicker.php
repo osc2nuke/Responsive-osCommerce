@@ -47,7 +47,7 @@
           $oscTemplate->addBlock('<link rel="stylesheet" type="text/css" href="' . tep_catalog_href_link('ext/datepicker/css/datepicker.css') . '">', 'header_tags');
           // customers         
           $oscTemplate->addBlock('<script>$(\'#customers_dob\').datepicker({dateFormat: \'' . JQUERY_DATEPICKER_FORMAT . '\',viewMode: 2});</script>', $this->group);
-          
+          $oscTemplate->addBlock('<script>$(\'#products_date_available\').datepicker({dateFormat: \'' . JQUERY_DATEPICKER_FORMAT . '\',viewMode: 2});</script>', $this->group);
           
         }
       }
